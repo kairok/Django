@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block heading %}
+
+    {% load staticfiles%}
+
+    <div class="loading">
+    </div>
+
+    <!-- navigation bar -->
+    <nav class="navbar navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-3 top-left-menu">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'home' %}">
+                <h1>Portal 1CB VA</h1>
+              </a>
+
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <a href="#" data-toggle="tooltip" data-placement="bottom" data-delay="500" title="Refresh data" class="header-refresh pull-right">
+              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <form id="search" role="search" class="hidden-xs col-sm-3">
+            <div class="input-group">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              <input type="text" class="form-control transition" placeholder="Search...">
+            </div>
+          </form>
+
+          <div id="nav-menu" class="collapse navbar-collapse pull-right">
+
+            <!-- Options button dropdown -->
+            <div id="nav-profile" class="btn-group pull-right">
+              <button type="button" class="btn btn-link dropdown-toggle thumbnail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'img/fcb_logo.jpg' %}" class="img-circle">
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'home' %}">На главную</a></li>
+                <li><a href="{% url 'home' %}">О проекте 1CB VA</a></li>
+{#                <li role="separator" class="divider"></li>#}
+                {% comment %}<li><a href="#">Logout</a></li>{% endcomment %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div id="side-menu" class="col-sm-3 hidden-xs" data-spy="affix" data-offset-top="0">
+          <div class="profile-block">
+            <img src="{% static 'img/fcb_logo.jpg' %}" class="img-circle">
+            <h4 class="profile-title">Первое Кредитное Бюро <small>#1CB Analytics</small></h4>
+          </div>
+
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="{% url 'home' %}" class="transition">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                Главная
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'manual' %}" class="transition">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                Справочник пользователя
+              </a>
+            </li>
+            <li>
+              <a href="#finances-opts" class="transition" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="finances-opts">
+                <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+                Кредитные отчеты
+                <span class="glyphicon glyphicon-menu-left pull-right transition" aria-hidden="true"></span>
+              </a>
+              <ul class="collapse list-unstyled" id="finances-opts">
+                <li>
+                  <a href="{% url 'quick' %}" class="transition">
+                    ПКО
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="transition">
+                    ККО
+                  </a>
+                </li>
+              </ul>
+            </li>
+            {% comment %}<li>
+              <a href="#" class="transition">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                Real time
+                <span class="badge pull-right">12</span>
+              </a>
+            </li>{% endcomment %}
+            <li class="nav-divider"></li>
+            <li>
+              <a href="#projects-opts" class="transition" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="projects-opts">
+                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                Аналитическое представление
+                <span class="glyphicon glyphicon-menu-left pull-right transition" aria-hidden="true"></span>
+              </a>
+              <ul class="collapse list-unstyled" id="projects-opts">
+                <li>
+                  <a href="{% url 'quick' %}" class="transition">
+                    Экспресс-анализ
+                  </a>
+                </li>
+                  <li>
+                  <a href="{% url 'region' %}" class="transition">
+                    Регионы
+                  </a>
+                </li>
+                  <li>
+                  <a href="{% url 'region2' %}" class="transition">
+                    Регионы - ver.2
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'channel' %}" class="transition">
+                    Источники
+                  </a>
+                </li>
+                 <li>
+                  <a href="{% url 'monitoring' %}" class="transition">
+                    Мониторинг
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+          </div>
+    </div>
+
+{% endblock %}
+

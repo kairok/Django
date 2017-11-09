@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Region');
+        data.addColumn('string', 'Name');
+        data.addColumn('number', 'Value');
+
+        data.addRows([
+        ['KZ-AKM', 'Акмолинская область', 100],
+        ['KZ-AKT', 'Актюбинская область', 105],
+        ['KZ-ALA', 'Алматы', 110],
+        ['KZ-ALM', 'Алматинская область', 115],
+        ['KZ-AST', 'Астана', 120],
+        ['KZ-ATY', 'Атырауская область', 125],
+        ['KZ-VOS', 'Восточно-Казахстанская область', 130],
+        ['KZ-ZHA', 'Жамбылская область', 140],
+        ['KZ-KAR', 'Карагандинская область', 150],
+        ['KZ-KUS', 'Костанайская область', 160],
+        ['KZ-KZY', 'Кызылординская область', 175],
+        ['KZ-MAN', 'Мангистауская область', 190],
+        ['KZ-SEV', 'Северо-Казахстанская область', 215],
+        ['KZ-PAV', 'Павлодарская область', 235],
+        ['KZ-YUZ', 'Южно-Казахстанская область', 255],
+        ['KZ-ZAP', 'Западно-Казахстанская область', 280],
+
+        ]);
+
+        var options = {
+        displayMode: 'region',
+        resolution: 'provinces',
+        region:'KZ',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>

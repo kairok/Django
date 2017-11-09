@@ -1,0 +1,365 @@
+{% extends 'base.html'%}
+
+{% block heading %}
+Channels
+{% endblock %}
+
+{% block content %}
+    {% include "heading.html" %}
+    {% load staticfiles%}
+    <div id="main" class="col-sm-offset-3 col-sm-9">
+<div style="width: 100%; position: fixed; top: 8.9%; z-index:1" id="asd">
+                <form action="/channel/" method="get" id="ff">
+                        <select name = "line" id="line"    onchange="OnChangeAreas(); ">
+                            <option>Онлайн/Оффлайн</option>
+                            <option {% if line in 'Онлайн'%} {{ "selected" }}  {% endif%}  value="Онлайн">Онлайн</option>
+                            <option  {% if line in 'Оффлайн'%} {{ "selected" }}  {% endif%}  value="Оффлайн">Оффлайн</option>
+                        </select>
+                        <select name = "pay" id="pay"    onchange="OnChangeAreas(); ">
+                              <option {% if pay in 'Платно/Бесплатно'%} {{ "selected" }}  {% endif%}  value="Платно/Бесплатно">Платно/Бесплатно</option>
+                              <option {% if pay in 'Платно'%} {{ "selected" }}  {% endif%}  value="Платно">Платно</option>
+                              <option {% if pay in 'Бесплатно'%} {{ "selected" }}  {% endif%}  value="Бесплатно">Бесплатно</option>
+                        </select>
+                        <select name = "found" id="found"    onchange="OnChangeAreas(); ">
+                              <option {% if found in 'Найден/Не найден'%} {{ "selected" }}  {% endif%}  value="Найден/Не найден">Найден/Не найден</option>
+                              <option {% if found in 'Найден'%} {{ "selected" }}  {% endif%}  value="Найден">Найден</option>
+                              <option  {% if found in 'Не найден'%} {{ "selected" }}  {% endif%}  value="Не найден">Не найден</option>
+                        </select>
+                        <select><option>Выберите период</option>
+                            <option>Год</option>
+                            <option>Квартал</option>
+                            <option>Месяц</option>
+                        </select>
+
+                        <select name = "areas" id="areas"    onchange="OnChangeAreas(); ">
+                            <option {% if selected in 'Выберите регион'%} {{ "selected" }}  {% endif%} value="Выберите регион">Выберите регион</option>
+                            <option {% if selected in 'Алматы'%} {{ "selected" }}  {% endif%} value="Алматы">Алматы</option>
+                            <option {% if selected in 'Астана'%} {{ "selected" }}  {% endif%} value="Астана">Астана</option>
+                            <option {% if selected in 'Алматинская'%} {{ "selected" }}  {% endif%} value="Алматинская">Алматинская</option>
+                            <option {% if selected in 'Акмолинская'%} {{ "selected" }}  {% endif%} value="Акмолинская">Акмолинская</option>
+                            <option {% if selected in 'Актюбинская'%} {{ "selected" }}  {% endif%} value="Актюбинская">Актюбинская</option>
+                            <option {% if selected in 'Атырауская'%} {{ "selected" }}  {% endif%} value="Атырауская">Атырауская</option>
+                            <option {% if selected in 'ВКО'%} {{ "selected" }}  {% endif%} value="ВКО">ВКО</option>
+                            <option {% if selected in 'Жамбылская'%} {{ "selected" }}  {% endif%} value="Жамбылская">Жамбылская</option>
+                            <option {% if selected in 'ЗКО'%} {{ "selected" }}  {% endif%} value="ЗКО">ЗКО</option>
+                            <option {% if selected in 'Карагандинская'%} {{ "selected" }}  {% endif%} value="Карагандинская">Карагандинская</option>
+                            <option {% if selected in 'Костанайская'%} {{ "selected" }}  {% endif%} value="Костанайская">Костанайская</option>
+                            <option {% if selected in 'Кызылординская'%} {{ "selected" }}  {% endif%} value="Кызылординская">Кызылординская</option>
+                            <option {% if selected in 'Мангыстауская'%} {{ "selected" }}  {% endif%} value="Мангыстауская">Мангыстауская</option>
+                            <option {% if selected in 'Павлодарская'%} {{ "selected" }}  {% endif%} value="Павлодарская">Павлодарская</option>
+                            <option {% if selected in 'ЮКО'%} {{ "selected" }}  {% endif%} value="ЮКО">ЮКО</option>
+                            <option {% if selected in 'СКО'%} {{ "selected" }}  {% endif%} value="СКО">СКО</option>
+                        </select>
+                 </form>
+        </div>
+
+        <div class="card" id="combo-channels">
+            <div class="card-block">
+              <h2>Выдачи ПКО по каналам</h2>
+              <div class="combo-area"></div>
+            </div>
+          </div>
+
+          <div class="card" id="channels-ration-stock">
+            <div class="card-block">
+              <h2>Динамика ПКО</h2>
+              <div class="stacked-area3"></div>
+            </div>
+          </div>
+
+        <div class="card" id="channels-ration-stock">
+            <div class="card-block">
+              <h2>Каналы с Drill-down</h2>
+              <div class="stacked-area2"></div>
+              </div>
+          </div>
+
+    <div class="card" id="ration-stock">
+            <div class="card-block-channel">
+              <h2>Динамика ПКО</h2>
+              <div class="stacked-area"></div>
+              <div class="switch">
+                Дни / Месяцы
+                <input type="checkbox" class="switchery" checked />
+                <div class="clearfix"></div>
+              </div>
+              <div class="switch">
+                Накопительно
+                <input type="checkbox" class="switchery" />
+                <div class="clearfix"></div>
+              </div>
+              </div>
+          </div>
+
+     </div>
+
+                 <script type="text/javascript" >
+                    function OnChangeAreas() {
+                        $("#ff").submit();
+                    }
+                 </script>
+
+     <script type="text/javascript">
+
+    $('#combo-channels .combo-area').highcharts({
+         title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [{%for ina in daily_channel%}
+                    '{{ina}}',
+
+                    {%endfor%}]
+    },
+    labels: {
+        items: [{
+            html: '',
+            style: {
+                left: '50px',
+                top: '18px',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+            }
+        }]
+    },
+    series: [{
+        type: 'column',
+        name: 'Предыдущая неделя',
+        data: [{%for ina in daily_date1%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'column',
+        name: 'Текущая неделя',
+        data: [{%for ina in daily_date2%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'pie',
+        name: 'Всего выдач',
+        data: [{
+            name: 'Предыдущая неделя',
+            y: {{ daily_date2sm }},
+            color: Highcharts.getOptions().colors[0] // Jane's color
+        }, {
+            name: 'Текущая неделя',
+            y: {{ daily_date1sm }},
+            color: Highcharts.getOptions().colors[1] // John's color
+        }],
+        center: [550, 50],
+        size: 100,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    }]
+});
+    </script>
+
+     // Динамика - линейный простой график
+    <script type="text/javascript">
+     $('#channels-ration-stock .stacked-area3').highcharts({
+        chart: {
+ type: 'line'
+    },
+    title: {
+        text: 'Monthly Average Temperature'
+    },
+    subtitle: {
+        text: 'Source: WorldClimate.com'
+    },
+    xAxis: {
+        categories: [{%for ina in pkoperiod%}
+                    '{{ina}}',
+
+                    {%endfor%}]
+    },
+    yAxis: {
+        title: {
+            text: 'Temperature (°C)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: 'Всего ПКО',
+        data: [{%for ina in pkosum%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }]
+    });
+    </script>
+
+     // channels ration stock stacked area with DRILL_DOWN
+     <script type="text/javascript">
+    $('#channels-ration-stock .stacked-area2').highcharts({
+        chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Доля каналов и динамика'
+    },
+    subtitle: {
+        text: 'Нажмите на колонку или ссылку для проваливания'
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'PKO, доля каналов'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [{
+        name: 'Канал',
+        colorByPoint: true,
+        data: [{
+                'name': 'ЦОН',
+                'y': {{ con }},
+                'drilldown': 'ЦОН'
+            }, {
+                'name': 'eGov',
+                'y': {{ egov }},
+                'drilldown': 'eGov'
+            }, {
+                'name': 'Homebank',
+                'y': {{ homebank }},
+                'drilldown': 'Homebank'
+            }, {
+                'name': 'КазПочта',
+                'y': {{ kazpochta }},
+                'drilldown': 'КазПочта'
+            }, {
+            'name': 'Офис',
+            'y': {{ offis }},
+            'drilldown': 'Офис'
+             }
+            , {
+                'name': 'Портал',
+                'y': {{ portal }},
+                'drilldown': 'Портал'
+            }, {
+                'name': 'Моб. приложение',
+                'y': {{ mobile }},
+                'drilldown': 'Моб. приложение'
+            }, {
+                'name': 'Myth',
+                'y': {{ myth }},
+                'drilldown': 'Myth'
+            }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'ЦОН',
+            id: 'ЦОН',
+            data: [
+                {%for ina in condril%}
+                    {{ina}},
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'eGov',
+            id: 'eGov',
+            data: [
+                 {%for ina in egovdril%}
+                    {{ina}},
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Homebank',
+            id: 'Homebank',
+            data: [
+                {%for ina in homebankdril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+
+            ]
+        }, {
+            name: 'КазПочта',
+            id: 'КазПочта',
+            data: [
+                {%for ina in kazpochtadril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Офис',
+            id: 'Офис',
+            data: [
+                {%for ina in ofisdril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Портал',
+            id: 'Портал',
+            data: [
+                {%for ina in portaldril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Моб. приложение',
+            id: 'Моб. приложение',
+            data: [
+                {%for ina in mobiledril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Myth',
+            id: 'Myth',
+            data: [
+                {%for ina in mifdril%}
+                    {{ina}},
+
+
+                    {%endfor%}
+            ]
+        }]
+    }
+    });
+
+
+</script>
+
+    {% endblock %}

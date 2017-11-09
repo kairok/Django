@@ -1,0 +1,515 @@
+
+
+
+
+{% extends 'base.html'%}
+
+
+
+{% block heading %}
+Channels
+{% endblock %}
+
+{% block content %}
+
+
+
+    {% include "heading.html" %}
+    {% load staticfiles%}
+
+
+
+
+    <div id="main" class="col-sm-offset-3 col-sm-9">
+
+          <div class="card" id="Navig-menu">
+            <div class="card-block">
+            		<div id="Navigation">
+			<ul class="Navigation">
+           		<li><a href="#">Онлайн</a>
+                <ul>
+				   <li><a href="#">Оффлайн</a></li>
+                </ul>
+                </li>
+				<li><a href="#">Найден</a>
+                <ul>
+				   <li><a href="#">Не найден</a></li>
+                </ul>
+                </li>
+            	<li><a href="#">Платно</a>
+					<ul>
+				   	<li><a href="#">Бесплатно</a></li>
+					</ul>
+			 	</li>
+             	<li><a href="#">Год</a>
+                    <ul>
+				   		<li><a href="#">Квартал</a></li>
+					</ul>
+                </li>
+             	<li><a href="#">Месяц</a>
+                                    <ul>
+				   		<li><a href="#">Неделя</a></li>
+					                </ul>
+                </li>
+            </ul>
+        </div>
+            </div>
+            </div>
+
+
+        <div class="card" id="channels-ration-stock">
+            <div class="card-block">
+              <h2>Каналы с Drill-down{{ pol }}</h2>
+              <div class="stacked-area2"></div>
+
+
+              </div>
+          </div>
+
+    <div class="card" id="ration-stock">
+            <div class="card-block">
+              <h2>Динамика ПКО</h2>
+              <div class="stacked-area"></div>
+              <div class="switch">
+                Дни2 / Месяцы
+                <input type="checkbox" class="switchery" checked />
+                <div class="clearfix"></div>
+              </div>
+              <div class="switch">
+                Накопительно
+                <input type="checkbox" class="switchery" />
+                <div class="clearfix"></div>
+              </div>
+              </div>
+          </div>
+
+    </div>
+
+
+
+<script type="text/javascript">
+
+     // channels ration stock stacked area
+    $('#channels-ration-stock .stacked-area2').highcharts({
+        chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Доля каналов и динамика'
+    },
+    subtitle: {
+        text: 'Нажмите на колонку или ссылку для проваливания'
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'PKO'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [{
+        name: 'Канал',
+        colorByPoint: true,
+        data: [{
+                'name': 'ЦОН',
+                'y': {{ con }},
+                'drilldown': 'ЦОН'
+            }, {
+                'name': 'eGov',
+                'y': {{ egov }},
+                'drilldown': 'eGov'
+            }, {
+                'name': 'Homebank',
+                'y': {{ homebank }},
+                'drilldown': 'Homebank'
+            }, {
+                'name': 'Казпочта',
+                'y': {{ kazpochta }},
+                'drilldown': 'Казпочта'
+            }, {
+            'name': 'Офис',
+            'y': {{ offis }},
+            'drilldown': 'Офис'
+             }
+            , {
+                'name': 'Портал',
+                'y': {{ portal }},
+                'drilldown': 'Портал'
+            }, {
+                'name': 'Мобильное приложение',
+                'y': {{ mobile }},
+                'drilldown': 'Мобильное приложение'
+            }, {
+                'name': 'МИФ',
+                'y': {{ myth }},
+                'drilldown': 'МИФ'
+            }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'ЦОН',
+            id: 'ЦОН',
+            data: [
+                {%for ina in acc%}
+                    {{ina}},
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'eGov',
+            id: 'eGov',
+            data: [
+                 {%for ina in egovdril%}
+                    {{ina}},
+
+                    {%endfor%}
+            ]
+        }, {
+            name: 'Homebank',
+            id: 'Homebank',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'Homebank',
+            id: 'Homebank',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'Казпочта',
+            id: 'Казпочта',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'Офис',
+            id: 'Офис',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'Портал',
+            id: 'Портал',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'Мобильное приложение',
+            id: 'Мобильное приложение',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }, {
+            name: 'МИФ',
+            id: 'МИФ',
+            data: [
+                [
+                    '1 кв 2015',
+                    24.13
+                ],
+                [
+                    '2 кв 2015',
+                    17.2
+                ],
+                [
+                    '3 кв 2015',
+                    8.11
+                ],
+                [
+                    '4 кв 2015',
+                    5.33
+                ],
+                [
+                    '1 кв 2016',
+                    1.06
+                ],
+                [
+                    '2 кв 2016',
+                    0.5
+                ],
+                [
+                    '3 кв 2016',
+                    1.06
+                ],
+                [
+                    '4 кв 2016',
+                    1.06
+                ],
+            [
+                    '1 кв 2017',
+                    1.06
+                ],
+                [
+                    '2 кв 2017',
+                    0.5
+                ]
+            ]
+        }]
+    }
+    });
+
+
+</script>
+
+
+
+
+
+
+    {% endblock %}
+

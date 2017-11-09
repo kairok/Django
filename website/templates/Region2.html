@@ -1,0 +1,195 @@
+{% extends 'base.html'%}
+
+{% block heading %}
+Channels
+{% endblock %}
+
+{% block content %}
+    {% include "heading.html" %}
+    {% load staticfiles%}
+
+    <div id="main" class="col-sm-offset-3 col-sm-9">
+
+        <div style="width: 100%; position: fixed; top: 9%; z-index:1" id="asd">
+			<ul class="Navigation">
+           		<li><a href="#">Онлайн</a>
+                <ul>
+				   <li><a href="#">Оффлайн</a></li>
+                </ul>
+                </li>
+				<li><a href="#">Найден</a>
+                <ul>
+				   <li><a href="#">Не найден</a></li>
+                </ul>
+                </li>
+            	<li><a href="#">Платно</a>
+					<ul>
+				   	<li><a href="#">Бесплатно</a></li>
+					</ul>
+			 	</li>
+             	<li><a href="#">Год</a>
+                    <ul>
+				   		<li><a href="#">Квартал</a></li>
+					</ul>
+                </li>
+             	<li><a href="#">Месяц</a>
+                                    <ul>
+				   		<li><a href="#">Неделя</a></li>
+					                </ul>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="card" id="regions-new">
+            <div class="card-block">
+              <h2>Региональная статистика</h2>
+             <script type="text/javascript">
+  FusionCharts.ready(function () {
+   var salesByState = new FusionCharts({
+        "type": "maps/kazakhstan",
+        "renderAt": "chartContainer",
+        "width": "600",
+        "height": "400",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "animation": "0",
+        "showbevel": "0",
+        "usehovercolor": "1",
+        "canvasbordercolor": "FFFFFF",
+        "bordercolor": "FFFFFF",
+        "showlegend": "1",
+        "showshadow": "0",
+        "legendposition": "BOTTOM",
+        "legendborderalpha": "0",
+        "legendbordercolor": "ffffff",
+        "legendallowdrag": "0",
+        "legendshadow": "0",
+        "caption": "Прирост ПКО",
+        "connectorcolor": "000000",
+        "fillalpha": "80",
+        "hovercolor": "CCCCCC",
+        "showborder": 1,
+        "subcaption": "К предыдущему периоду",
+        "entityFillHoverColor": "#cccccc",
+        "numberScaleValue": "1,1000,1000",
+        "numberScaleUnit": "K,M,B",
+        "numberPrefix": "$",
+        "showLabels": "1",
+        "theme": "fint"
+    },
+    "colorrange": {
+        "minvalue": "0",
+        "startlabel": "Low",
+        "endlabel": "High",
+        "code": "e44a00",
+        "gradient": "1",
+        "color": [
+            {
+                "maxvalue": 30000,
+                "displayvalue": "Average",
+                "code": "f8bd19"
+            },
+            {
+                "maxvalue": 100000,
+                "code": "6baa01"
+            }
+        ],
+        "maxvalue": 0
+    },
+    "data": [
+        {
+            "data": [
+                {
+                    "id": "KZ.AA",
+                    "value": "3407"
+                },
+                {
+                    "id": "KZ.AC",
+                    "value": "3611"
+                },
+                {
+                    "id": "KZ.AM",
+                    "value": "44849"
+                },
+                {
+                    "id": "KZ.AT",
+                    "value": "34263"
+                },
+                {
+                    "id": "KZ.AS",
+                    "value": "52670"
+                },
+                {
+                    "id": "KZ.AR",
+                    "value": "47474"
+                },
+                {
+                    "id": "KZ.BY",
+                    "value": "57515"
+                },
+                {
+                    "id": "KZ.EK",
+                    "value": "41953"
+                },
+                {
+                    "id": "KZ.MG",
+                    "value": "78214"
+                },
+                {
+                    "id": "KZ.NK",
+                    "value": "70598"
+                },
+                {
+                    "id": "KZ.PA",
+                    "value": "39997"
+                },
+                {
+                    "id": "KZ.QG",
+                    "value": "72681"
+                },
+                {
+                    "id": "KZ.QS",
+                    "value": "46419"
+                },
+                {
+                    "id": "KZ.QO",
+                    "value": "50354"
+                },
+                {
+                    "id": "KZ.SK",
+                    "value": "99990"
+                },
+                {
+                    "id": "KZ.WK",
+                    "value": "80205"
+                },
+                {
+                    "id": "KZ.ZM",
+                    "value": "80205"
+                }
+            ]
+        }
+    ]
+}
+    });
+    salesByState.render();
+});
+  </script>
+        <div id="chartContainer">FusionMaps XT will load s map here!</div>
+                </div>
+                </div>
+
+    <div class="card" id="bar-chart">
+            <div class="card-block">
+              <h2>Рейтинг регионов</h2>
+              <div id="bar2d1"></div>
+                {{ output|safe }}
+            </div>
+          </div>
+
+    </div>
+
+
+{% endblock %}

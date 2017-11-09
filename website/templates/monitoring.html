@@ -1,0 +1,754 @@
+{% extends 'base.html'%}
+
+{% block heading %}
+Channels
+{% endblock %}
+
+{% block content %}
+    {% include "heading.html" %}
+    {% load staticfiles%}
+    <div id="main" class="col-sm-offset-3 col-sm-9">
+        <div style="width: 100%; position: fixed; top: 9%; z-index:1" id="asd">
+			<ul class="Navigation">
+
+
+
+            <form action="/monitoring/" method="get" id="ff">
+
+
+                            <select name = "found" id="found"    onchange="OnChangeAreas(); ">
+                              <option {% if found in 'Найден и Не найден'%} {{ "selected" }}  {% endif%}  value="Найден и Не найден">Найден и Не найден</option>
+                              <option {% if found in 'Найден'%} {{ "selected" }}  {% endif%}  value="Найден">Найден</option>
+                              <option  {% if found in 'Не найден'%} {{ "selected" }}  {% endif%}  value="Не найден">Не найден</option>
+
+                            </select>
+
+
+                            <select name = "pay" id="pay"    onchange="OnChangeAreas(); ">
+                                <option {% if pay in 'Платно и Бесплатно'%} {{ "selected" }}  {% endif%}  value="Платно и Бесплатно">Платно и Бесплатно</option>
+                              <option {% if pay in 'Платно'%} {{ "selected" }}  {% endif%}  value="Платно">Платно</option>
+                              <option  {% if pay in 'Бесплатно'%} {{ "selected" }}  {% endif%}  value="Бесплатно">Бесплатно</option>
+
+                            </select>
+
+                        <select name = "areas" id="areas"    onchange="OnChangeAreas(); ">
+                              <option {% if selected in 'Алматы'%} {{ "selected" }}  {% endif%}  value="Алматы">Алматы</option>
+                              <option  {% if selected in 'Астана'%} {{ "selected" }}  {% endif%}  value="Астана">Астана</option>
+                              <option   {% if selected in 'Алматинская'%} {{ "selected" }}  {% endif%}  value="Алматинская">Алматинская</option>
+                              <option {% if selected in 'Акмолинская'%} {{ "selected" }}  {% endif%}  value="Акмолинская">Акмолинская</option>
+                        </select>
+            </form>
+
+
+            </ul>
+        </div>
+
+          <div class="card" id="combo-channels">
+            <div class="card-block">
+                  <h2>Мониторинг ЦОН по неделям</h2>
+                <div class="combo-area3" style="min-width: 1050px; height: 380px; margin: 0 auto"></div>
+            </div>
+          </div>
+
+          <div class="card" id="combo-channels">
+            <div class="card-block">
+                  <h2>Мониторинг ЦОН: отделения по фильтру "{{ selected }}"</h2>
+                <div class="areaspl2" style="min-width: 1050px; height: 380px; margin: 0 auto"></div>
+            </div>
+          </div>
+
+          <div class="card" id="combo-channels">
+            <div class="card-block">
+                  <h2>Мониторинг ЦОН по месяцам</h2>
+                <div class="combo-area2" style="min-width: 1050px; height: 380px; margin: 0 auto"></div>
+            </div>
+          </div>
+
+          <div class="card" id="combo-channels">
+            <div class="card-block">
+                  <h2>Мониторинг ЦОН: отделения по фильтру "{{ selected }}"</h2>
+                <div class="areaspl" style="min-width: 1050px; height: 380px; margin: 0 auto"></div>
+            </div>
+          </div>
+
+
+                    <div class="card" id="gauge-chart">
+            <div class="card-block">
+              <h2>Портал</h2>
+
+                 <script type="text/javascript" >
+                    function OnChangeAreas() {
+                        //alert($("#areas").val());
+                        $("#ff").submit();
+                    }
+
+                </script>
+
+                <script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'hlineargauge',
+    renderAt: 'chart-container',
+    id: 'cpu-linear-gauge',
+    width: '400',
+    height: '100',
+    dataFormat: 'json',
+    dataSource: {
+    "chart": {
+        "manageresize": "1",
+        "origw": "350",
+        "origh": "200",
+        "palette": "2",
+        "bgalpha": "0",
+        "bgcolor": "FFFFFF",
+        "lowerlimit": "0",
+        "upperlimit": "100",
+        "numbersuffix": "%",
+        "showborder": "0",
+        "basefontcolor": "FFFFDD",
+        "charttopmargin": "5",
+        "chartbottommargin": "5",
+        "tooltipbgcolor": "009999",
+        "gaugefillmix": "{dark-10},{light-70},{dark-10}",
+        "gaugefillratio": "3",
+        "pivotradius": "8",
+        "gaugeouterradius": "120",
+        "gaugeinnerradius": "70%",
+        "gaugeoriginx": "175",
+        "gaugeoriginy": "170",
+        "trendvaluedistance": "5",
+        "tickvaluedistance": "3",
+        "managevalueoverlapping": "1",
+        "autoaligntickvalues": "1"
+    },
+    "colorrange": {
+        "color": [
+            {
+                "minvalue": "0",
+                "maxvalue": "45",
+                "code": "FF654F"
+            },
+            {
+                "minvalue": "45",
+                "maxvalue": "80",
+                "code": "F6BD0F"
+            },
+            {
+                "minvalue": "80",
+                "maxvalue": "100",
+                "code": "8BBA00"
+            }
+        ]
+    },
+    "dials": {
+        "dial": [
+            {
+                "value": "72",
+                "rearextension": "10",
+                "basewidth": "10"
+            }
+        ]
+    },
+    "trendpoints": {
+        "point": [
+            {
+                "startvalue": "62",
+                "displayvalue": "Average",
+                "usemarker": "1",
+                "markerradius": "8",
+                "dashed": "1",
+                "dashlen": "2",
+                "dashgap": "2"
+            }
+        ]
+    },
+    "annotations": {
+        "groups": [
+            {
+                "id": "Grp1",
+                "showbelow": "1",
+                "showshadow": "1",
+                "items": [
+                    {
+                        "type": "rectangle",
+                        "x": "$chartStartX+5",
+                        "y": "$chartStartY+5",
+                        "tox": "$chartEndX-5",
+                        "toy": "$chartEndY-5",
+                        "radius": "10",
+                        "fillcolor": "009999,333333",
+                        "showborder": "0"
+                    }
+                ]
+            }
+        ]
+    }
+}
+    });
+    fusioncharts.render();
+});
+</script>
+        <div id="chart-container">FusionMaps XT will load s map here!</div>
+                </div>
+                </div>
+
+
+
+<div class="card" id="gauge-chart2">
+            <div class="card-block">
+              <h2>Мобильное приложение</h2>
+             <script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'hlineargauge',
+    renderAt: 'chart-container2',
+    width: '400',
+    height: '100',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "theme": "fint",
+            "caption": "Server CPU Utilization",
+            "subcaptionFontBold": "0",
+            "lowerLimit": "0",
+            "upperLimit": "100",
+            "numberSuffix": "%",
+            "chartBottomMargin": "20",
+            "captionPadding": "10",
+            "valueAbovePointer": "0",
+            "valueFontSize": "13",
+            "valueFontBold": "0",
+            "gaugeFillMix": "{light-10},{light-70},{dark-10}",
+            "gaugeFillRatio": "40,20,40"
+        },
+        "colorRange": {
+            "color": [{
+                "minValue": "0",
+                "maxValue": "35",
+                "label": "Low"
+            }, {
+                "minValue": "35",
+                "maxValue": "70",
+                "label": "Moderate"
+            }, {
+                "minValue": "70",
+                "maxValue": "100",
+                "label": "High"
+            }]
+        },
+        "pointers": {
+            "pointer": [{
+                "value": "75"
+            }]
+        }
+    },
+    events: {
+        'beforeRender': function(event, args) {
+            var radiobuttons = document.createElement('div');
+            radiobuttons.setAttribute('id', 'radio-container');
+            radiobuttons.innerHTML = '<input type="checkbox" id="showCB" name="padding" value="1" checked >Show Value</input><br><input type="checkbox" id="positionCB" name="padding" value="2">Place Value Above Pointer</input>';
+
+            radiobuttons.style.cssText = 'margin-top:10px; width:400px;';
+
+            args.container.parentNode.insertBefore(radiobuttons, args.container.nextSibling);
+
+            var showVal = document.getElementById('showCB'),
+                placeVal = document.getElementById('positionCB'),
+                cpuGauge = event.sender;
+
+            // Function to show hide value
+            function showValue() {
+                //Using showValue attribute to show hide pointer value
+                if (showVal.checked) {
+                    cpuGauge.setChartAttribute('showValue', 1);
+                    //placeVal.disabled = false;
+                } else {
+                    cpuGauge.setChartAttribute('showValue', 0);
+                    //placeVal.disabled = true;
+                }
+            }
+
+            //Function to change value pointer
+            function setPosition() {
+                //Using valueAbovePointer attribute to toggle position of pointer value
+                (placeVal.checked) ? cpuGauge.setChartAttribute('valueAbovePointer', 1) :
+                    cpuGauge.setChartAttribute('valueAbovePointer', 0);
+            }
+
+            showVal.addEventListener && showVal.addEventListener("click", showValue);
+            placeVal.addEventListener && placeVal.addEventListener("click", setPosition);
+        }
+    }
+}
+);
+    fusioncharts.render();
+});
+</script>
+        <div id="chart-container2">FusionMaps XT will load s map here!</div>
+                </div>
+                </div>
+
+
+    <div class="card" id="gauge-chart2">
+            <div class="card-block">
+              <h2>eGOV</h2>
+             <script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+        type: 'hlineargauge',
+        renderAt: 'chart-container3',
+        width: '400',
+        height: '150',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "manageresize": "1",
+                "origw": "420",
+                "origh": "90",
+                "lowerlimit": "0",
+                "upperlimit": "100",
+                "numbersuffix": "%",
+                "showborder": "0",
+                "bgcolor": "FFFFFF",
+                "ticksbelowgauge": "1",
+                "valuepadding": "0",
+                "gaugefillmix": "",
+                "showgaugeborder": "0",
+                "pointerontop": "0",
+                "pointerradius": "5",
+                "pointerbordercolor": "000000",
+                "pointerbgcolor": "000000",
+                "annrenderdelay": "0",
+                "showshadow": "0",
+                "minortmnumber": "0",
+                "basefontcolor": "000000",
+                "animation": "0"
+            },
+            "colorrange": {
+                "color": [
+                    {
+                        "minvalue": "0",
+                        "maxvalue": "100",
+                        "alpha": "0"
+                    }
+                ]
+            },
+            "pointers": {
+                "pointer": [
+                    {
+                        "value": "62"
+                    }
+                ]
+            },
+            "annotations": {
+                "groups": [
+                    {
+                        "id": "Grp1",
+                        "showbelow": "0",
+                        "x": "$chartCenterX",
+                        "y": "-765",
+                        "items": [
+                            {
+                                "type": "circle",
+                                "radius": "800",
+                                "color": "FFFFFF"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "Grp2",
+                        "showbelow": "1",
+                        "items": [
+                            {
+                                "type": "rectangle",
+                                "x": "$gaugeStartX",
+                                "y": "$gaugeStartY",
+                                "tox": "$gaugeEndX",
+                                "toy": "$gaugeEndY",
+                                "fillcolor": "678000,FCEF27,E00000"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "Grp3",
+                        "showbelow": "0",
+                        "items": [
+                            {
+                                "type": "text",
+                                "x": "$gaugeStartX+25",
+                                "y": "40",
+                                "size": "10",
+                                "color": "FFFFFF",
+                                "bold": "1",
+                                "label": "Good"
+                            },
+                            {
+                                "type": "text",
+                                "x": "$gaugeEndX-25",
+                                "y": "40",
+                                "size": "10",
+                                "color": "FFFFFF",
+                                "bold": "1",
+                                "label": "Bad"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+);
+    fusioncharts.render();
+});
+</script>
+        <div id="chart-container3">FusionMaps XT will load s map here!</div>
+                </div>
+                </div>
+
+    <div class="card" id="gauge-chart2">
+            <div class="card-block">
+              <h2>Офис</h2>
+             <script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+        type: 'hlineargauge',
+        renderAt: 'chart-container4',
+        width: '400',
+        height: '150',
+        dataFormat: 'json',
+        dataSource: {
+    "chart": {
+        "caption": "Customer Satisfaction Score",
+        "lowerlimit": "0",
+        "upperlimit": "100",
+        "lowerlimitdisplay": "Bad",
+        "upperlimitdisplay": "Good",
+        "palette": "1",
+        "numbersuffix": "%",
+        "tickvaluedistance": "10",
+        "showvalue": "0",
+        "gaugeinnerradius": "0",
+        "bgcolor": "FFFFFF",
+        "pivotfillcolor": "333333",
+        "pivotradius": "8",
+        "pivotfillmix": "333333, 333333",
+        "pivotfilltype": "radial",
+        "pivotfillratio": "0,100",
+        "showtickvalues": "1",
+        "showborder": "0"
+    },
+    "colorrange": {
+        "color": [
+            {
+                "minvalue": "0",
+                "maxvalue": "45",
+                "code": "e44a00"
+            },
+            {
+                "minvalue": "45",
+                "maxvalue": "75",
+                "code": "f8bd19"
+            },
+            {
+                "minvalue": "75",
+                "maxvalue": "100",
+                "code": "6baa01"
+            }
+        ]
+    },
+    "dials": {
+        "dial": [
+            {
+                "value": "92",
+                "rearextension": "15",
+                "radius": "100",
+                "bgcolor": "333333",
+                "bordercolor": "333333",
+                "basewidth": "8"
+            }
+        ]
+    }
+}
+    }
+);
+    fusioncharts.render();
+});
+</script>
+        <div id="chart-container4">FusionMaps XT will load s map here!</div>
+                </div>
+                </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+    $('#combo-channels .combo-area2').highcharts({
+                 title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [{%for ina in area%}
+                    '{{ina}}',
+
+                    {%endfor%}]
+    },
+    labels: {
+        items: [{
+            html: '',
+            style: {
+                left: '30px',
+                top: '18px',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+            }
+        }]
+    },
+    series: [{
+        type: 'column',
+        name: '2017-07',
+        data: [{%for ina in date2%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'column',
+        name: '2017-08',
+        data: [{%for ina in date1%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'spline',
+        name: 'Average 25 month',
+        data: [{%for ina in avg%}
+                    {{ina}},
+
+                    {%endfor%}],
+        marker: {
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[3],
+            fillColor: 'white'
+        }
+    }, {
+        type: 'pie',
+        name: 'Всего выдач ПКО',
+        data: [{
+            name: '2017-07',
+            y: {{ date2sm }},
+            color: Highcharts.getOptions().colors[0] // Jane's color
+        }, {
+            name: '2017-08',
+            y: {{ date1sm }},
+            color: Highcharts.getOptions().colors[1] // John's color
+        }],
+        center: [500, 50],
+        size: 120,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    }]
+});
+
+</script>
+
+<script type="text/javascript">
+
+    $('#combo-channels .combo-area3').highcharts({
+         title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [{%for ina in daily_area%}
+                    '{{ina}}',
+
+                    {%endfor%}]
+    },
+    labels: {
+        items: [{
+            html: 'Выдачи ПКО',
+            style: {
+                left: '50px',
+                top: '18px',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+            }
+        }]
+    },
+    series: [{
+        type: 'column',
+        name: 'Предыдущая неделя',
+        data: [{%for ina in daily_date1%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'column',
+        name: 'Текущая неделя',
+        data: [{%for ina in daily_date2%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        type: 'spline',
+        name: 'Average',
+        data: [{%for ina in daily_avg%}
+                    {{ina}},
+
+                    {%endfor%}],
+        marker: {
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[3],
+            fillColor: 'white'
+        }
+    }, {
+        type: 'pie',
+        name: 'Total consumption',
+        data: [{
+            name: 'Предыдущая неделя',
+            y: {{ daily_date2sm }},
+            color: Highcharts.getOptions().colors[0] // Jane's color
+        }, {
+            name: 'Текущая неделя',
+            y: {{ daily_date1sm }},
+            color: Highcharts.getOptions().colors[1] // John's color
+        }],
+        center: [100, 80],
+        size: 100,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    }]
+});
+
+</script>
+
+    <script type="text/javascript">
+
+    $('#combo-channels .areaspl').highcharts({
+        chart: {
+        type: 'areaspline'
+    },
+        title: {
+        text: ''
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || ''
+    },
+    xAxis: {
+        categories: [{%for ina in section_name%}
+                    '{{ina}}',
+
+                    {%endfor%}],
+        plotBands: [{ // visualize the weekend
+            from: 4.5,
+            to: 6.5,
+            color: ''
+        }]
+    },
+    yAxis: {
+        title: {
+            text: 'выдано ПКО'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' units'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: '2017-07',
+        data: [{%for ina in sectiondate2%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        name: '2017-08',
+        data: [{%for ina in sectiondate1%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }]
+});
+
+</script>
+
+    <script type="text/javascript">
+
+    $('#combo-channels .areaspl2').highcharts({
+        chart: {
+        type: 'areaspline'
+    },
+        title: {
+        text: ''
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || ''
+    },
+    xAxis: {
+        categories: [{%for ina in w_section_name%}
+                    '{{ina}}',
+
+                    {%endfor%}],
+        plotBands: [{ // visualize the weekend
+            from: 4.5,
+            to: 6.5,
+            color: ''
+        }]
+    },
+    yAxis: {
+        title: {
+            text: 'выдано ПКО'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' units'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: 'предыдущая неделя',
+        data: [{%for ina in w_sectiondate2%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }, {
+        name: 'текущая неделя',
+        data: [{%for ina in w_sectiondate1%}
+                    {{ina}},
+
+                    {%endfor%}]
+    }]
+});
+
+</script>
+
+{% endblock %}
